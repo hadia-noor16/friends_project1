@@ -3,7 +3,7 @@
 # The code for the Friends class below contains a small number of bugs: 
 # Please find and correct them so that the class meets the specifications 
 # described in the handout and docstring
-#
+
 
 from typing import Tuple, Set, Dict, Iterator
 

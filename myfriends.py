@@ -72,7 +72,11 @@ def make_friends_directory(pairs):
     directory = dict()
 
     # ------------ BEGIN YOUR CODE ------------
+
+    #for pair in pairs:
+        #print(pair)
     for person1, person2 in pairs:
+
         #print(person1, person2)
         if person1 not in directory:
             directory[person1] = set()
@@ -116,6 +120,7 @@ def find_all_number_of_friends(my_dir):
     #  'GOLDLEADER': {'BIGGS', 'LUKE', 'DODONNA', 'WEDGE', 'REDLEADER'},
     #  'WEDGE': {'BIGGS', 'LUKE', 'DODONNA', 'GOLDLEADER', 'REDLEADER'},
     #  'REDLEADER': {'BIGGS', 'LUKE', 'LEIA', 'C-3PO', 'REDTEN', 'GOLDLEADER', 'WEDGE'}, 'REDTEN': {'LUKE', 'REDLEADER'}}
+
     friends_list = []
     #count=0
     #dict={}
@@ -199,7 +204,7 @@ def make_team_roster(person, my_dir):
 
 
     #circle=sorted(set(circle))
-    print(circle)
+    #print(circle)
 
     label = label + '_' + '_'.join(circle)  #starts with label i.e Darthvader_ and then join all elements of list as a string using _
    # print(label)                         #Since it doesn't put _ before first element of cirlce list, I had to do it after label.
