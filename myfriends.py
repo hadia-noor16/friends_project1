@@ -39,11 +39,14 @@ def load_pairs(filename):
     """
     list_of_pairs = []
     with open(filename, 'rt') as infile:
+        for line in infile:
+            list_of_pairs.append(line.strip().split(' '))
+    print(list_of_pairs)
 
 # ------------ BEGIN YOUR CODE ------------
 
         
-        pass    # implement your code here
+        #pass    # implement your code here
 
 
 # ------------ END YOUR CODE ------------
@@ -69,9 +72,20 @@ def make_friends_directory(pairs):
     directory = dict()
 
     # ------------ BEGIN YOUR CODE ------------
+    for person1, person2 in pairs:
+        #print(person1, person2)
+        if person1 not in directory:
+            directory[person1] = set()
+        if person2 not in directory:
+            directory[person2] = set()
+
+        directory[person1].add(person2)
+        directory[person2].add(person1)
+
+    #print(directory)
 
     
-    pass    # implement your code here
+    #pass    # implement your code here
 
 
     # ------------ END YOUR CODE ------------
@@ -86,16 +100,41 @@ def find_all_number_of_friends(my_dir):
     of 2-tuples, where each tuples has the person's name as the first element,
     the the number of friends as the second element.
     """
+    # {'CHEWBACCA': {'LUKE', 'LEIA', 'C-3PO', 'R2-D2', 'OBI-WAN', 'HAN'},
+    #  'R2-D2': {'BIGGS', 'LUKE', 'BERU', 'LEIA', 'C-3PO', 'OBI-WAN', 'OWEN', 'HAN', 'CHEWBACCA'},
+    #  'C-3PO': {'BIGGS', 'BERU', 'LUKE', 'LEIA', 'R2-D2', 'OBI-WAN', 'OWEN', 'HAN', 'CHEWBACCA', 'REDLEADER'},
+    #  'BERU': {'LUKE', 'LEIA', 'C-3PO', 'R2-D2', 'OWEN'},
+    #  'LUKE': {'BIGGS', 'BERU', 'WEDGE', 'LEIA', 'C-3PO', 'R2-D2', 'REDTEN', 'DODONNA', 'OBI-WAN', 'GOLDLEADER', 'CAMIE',
+    #           'OWEN', 'HAN', 'CHEWBACCA', 'REDLEADER'}, 'OWEN': {'BERU', 'C-3PO', 'LUKE', 'R2-D2'},
+    #  'OBI-WAN': {'LUKE', 'DARTHVADER', 'LEIA', 'C-3PO', 'R2-D2', 'HAN', 'CHEWBACCA'},
+    #  'LEIA': {'BIGGS', 'DARTHVADER', 'LUKE', 'BERU', 'TARKIN', 'C-3PO', 'REDLEADER', 'R2-D2', 'OBI-WAN', 'HAN',
+    #           'CHEWBACCA', 'MOTTI'},
+    #  'BIGGS': {'LUKE', 'LEIA', 'C-3PO', 'R2-D2', 'GOLDLEADER', 'CAMIE', 'WEDGE', 'REDLEADER'},
+    #  'HAN': {'LUKE', 'LEIA', 'C-3PO', 'R2-D2', 'OBI-WAN', 'CHEWBACCA'}, 'CAMIE': {'BIGGS', 'LUKE'},
+    #  'DARTHVADER': {'MOTTI', 'TARKIN', 'OBI-WAN', 'LEIA'}, 'MOTTI': {'LEIA', 'DARTHVADER', 'TARKIN'},
+    #  'TARKIN': {'LEIA', 'DARTHVADER', 'MOTTI'}, 'DODONNA': {'WEDGE', 'LUKE', 'GOLDLEADER'},
+    #  'GOLDLEADER': {'BIGGS', 'LUKE', 'DODONNA', 'WEDGE', 'REDLEADER'},
+    #  'WEDGE': {'BIGGS', 'LUKE', 'DODONNA', 'GOLDLEADER', 'REDLEADER'},
+    #  'REDLEADER': {'BIGGS', 'LUKE', 'LEIA', 'C-3PO', 'REDTEN', 'GOLDLEADER', 'WEDGE'}, 'REDTEN': {'LUKE', 'REDLEADER'}}
     friends_list = []
+    #count=0
+    #dict={}
 
     # ------------ BEGIN YOUR CODE ------------
 
+    for person in my_dir:
+        number_of_friends = len(my_dir[person])
+        friends_list.append((person, number_of_friends))
 
-    pass    # implement your code here
+    print (friends_list)
+
+
+
+    #pass    # implement your code here
     
 
     # ------------ END YOUR CODE ------------
-
+    #print(friends_list)
     return friends_list
 
 
@@ -117,13 +156,57 @@ def make_team_roster(person, my_dir):
     - Team is drawn from only within two circles of A -- friends of A, plus 
       their immediate friends only
     """
+
+    # {'CHEWBACCA': {'LUKE', 'LEIA', 'C-3PO', 'R2-D2', 'OBI-WAN', 'HAN'},
+    #  'R2-D2': {'BIGGS', 'LUKE', 'BERU', 'LEIA', 'C-3PO', 'OBI-WAN', 'OWEN', 'HAN', 'CHEWBACCA'},
+    #  'C-3PO': {'BIGGS', 'BERU', 'LUKE', 'LEIA', 'R2-D2', 'OBI-WAN', 'OWEN', 'HAN', 'CHEWBACCA', 'REDLEADER'},
+    #  'BERU': {'LUKE', 'LEIA', 'C-3PO', 'R2-D2', 'OWEN'},
+    #  'LUKE': {'BIGGS', 'BERU', 'WEDGE', 'LEIA', 'C-3PO', 'R2-D2', 'REDTEN', 'DODONNA', 'OBI-WAN', 'GOLDLEADER', 'CAMIE',
+    #           'OWEN', 'HAN', 'CHEWBACCA', 'REDLEADER'}, 'OWEN': {'BERU', 'C-3PO', 'LUKE', 'R2-D2'},
+    #  'OBI-WAN': {'LUKE', 'DARTHVADER', 'LEIA', 'C-3PO', 'R2-D2', 'HAN', 'CHEWBACCA'},
+    #  'LEIA': {'BIGGS', 'DARTHVADER', 'LUKE', 'BERU', 'TARKIN', 'C-3PO', 'REDLEADER', 'R2-D2', 'OBI-WAN', 'HAN',
+    #           'CHEWBACCA', 'MOTTI'},
+    #  'BIGGS': {'LUKE', 'LEIA', 'C-3PO', 'R2-D2', 'GOLDLEADER', 'CAMIE', 'WEDGE', 'REDLEADER'},
+    #  'HAN': {'LUKE', 'LEIA', 'C-3PO', 'R2-D2', 'OBI-WAN', 'CHEWBACCA'}, 'CAMIE': {'BIGGS', 'LUKE'},
+    #  'DARTHVADER': {'MOTTI', 'TARKIN', 'OBI-WAN', 'LEIA'}, 'MOTTI': {'LEIA', 'DARTHVADER', 'TARKIN'},
+    #  'TARKIN': {'LEIA', 'DARTHVADER', 'MOTTI'}, 'DODONNA': {'WEDGE', 'LUKE', 'GOLDLEADER'},
+    #  'GOLDLEADER': {'BIGGS', 'LUKE', 'DODONNA', 'WEDGE', 'REDLEADER'},
+    #  'WEDGE': {'BIGGS', 'LUKE', 'DODONNA', 'GOLDLEADER', 'REDLEADER'},
+    #  'REDLEADER': {'BIGGS', 'LUKE', 'LEIA', 'C-3PO', 'REDTEN', 'GOLDLEADER', 'WEDGE'}, 'REDTEN': {'LUKE', 'REDLEADER'}}
+
     assert person in my_dir
     label = person
+    circle1=[]
+    circle2=[]
 
     # ------------ BEGIN YOUR CODE ------------
 
+    for person,friends in my_dir.items():
+        for friend in friends:
+            if person == label:
+                circle1.append(friend)  # only friends of DARTHVADER in cirlce 1
+
+                circle2.extend(my_dir[friend])  #friends of friends of circle 1. Extend func adds EACH PERSON separately, not as one item
+
+                if label in circle2:   # we don't want Darthvader in list as he is the leader
+                    circle2.remove(label)
+        # if person == label:
+        #     circle1.append(friend)
+        #     circle2.append(my_dir[friend])
+    circle= sorted(set(circle1+circle2))#adds both list of friends in circle 1 and 2, remove duplicates and combines them
+
+
+
+
+    #circle=sorted(set(circle))
+    print(circle)
+
+    label = label + '_' + '_'.join(circle)  #starts with label i.e Darthvader_ and then join all elements of list as a string using _
+   # print(label)                         #Since it doesn't put _ before first element of cirlce list, I had to do it after label.
+
+
     
-    pass    # implement your code here
+    #pass    # implement your code here
 
 
     # ------------ END YOUR CODE ------------
@@ -136,16 +219,49 @@ def find_smallest_team(my_dir):
     - if ties, return the team roster label that is first in ASCII order
     """
     smallest_teams = []
+    all_friends=[]
 
     # ------------ BEGIN YOUR CODE
+    for person,friends in my_dir.items():
+        circle_1=[] # for each member, find friends from circle 1
+        circle_2=[]  # for each member, find friends of friends
+        circle=[]    # Sum of friends from both circles
+        for friend in friends:
+            circle_1.append(friend)    # append all friends of person 1
+            circle_2.extend(my_dir[friend])  #append all friends of friend from circle 1
+        circle=sorted(set(circle_1+circle_2))
+        circle.remove(person)
 
+        label= person + '_' + '_'.join(circle)
+        all_friends.append(label)    # append all created labels in a list
+    #print(all_friends)
+    team={}   #empty dictionary to put all rosters and their count
+    total_friends=[]
 
-    pass    # implement your code here
+    for members in all_friends:   # takes each roster like "Han_leia_Luke_hanna"
+        total_friends=members.split('_')   #splits each person by _ and put in a list
+        team[members]=int (len(total_friends)-1)  #  adding item into dict, key= members, value is lenth of their roster
+                                                    # find the length of list to find total length of roster,
+                                                  # -1 because first name is the leader, we only need friends count
+    #print(team)
+
+    minimum=min(team.values())  # extracts minimum value from dict
+    #print(minimum)
+
+    for key,value in team.items():
+        if value==minimum:   #compare each value with minimum i.e 12
+
+            smallest_teams.append(key)  #append all the items with min value
+
+    #print(smallest_teams)
+    smallest_teams.sort() # sort items alphabetically
+
+    #pass    # implement your code here
 
     
     # ------------ END YOUR CODE
 
-    return smallest_teams[0] if smallest_teams else ""
+    return smallest_teams[0] if smallest_teams else ""   #return first item from the list
 
 
 

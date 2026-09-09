@@ -41,7 +41,7 @@ class Friends(Iterator):
             # initially, `persons` is list of all keys; 
             # and `friends` is list of the first person's friends
             self.persons = sorted(friends_dir.keys())
-            self.friends = sorted(friends_dir[self.persons[0]])
+            self.friends = sorted(friends_dir[self.persons[0]]) # sorted list of friends
 
         else:
             # handle edge case when input is an empty directory
@@ -68,6 +68,8 @@ class Friends(Iterator):
                                     if s > self.persons[0]])
 
         # return the next friendship pair as a tuple
-        return (self.persons[0], self.friends.pop())
+        return (self.persons[0], self.friends.pop(0))   # the only issue with this code was self.friends.pop(). Pop() removes
+                                                       #and  returns the last item from the list, since the list is already
+                                                       # sorted, we need pop(0) to remove the first item from the list and return it
 
     # ------------ END DEBUG ------------
